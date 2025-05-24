@@ -33,4 +33,27 @@ Over the last couple of years I've been steadily expanding and refining the util
 * 2019 - [C++] Ported my terrible Python code and finally finished off the year
 * 2022 - [C++] Ported my original C# solutions over to C++
 
+## Wall of Nemeses
+
+In most years there seems to be at least one puzzle that stumps me for a day or two (or three). There are often two or three which are finicky and require hours of careful debugging and re-reading the specs, but the days that make my nemesis wall are the ones where I either don't even have a clue what a (reasonable runtime) solution would look like at first, or ones that took an unreasonably large amount of faffing for me to get right.
+
+* [2015 Day 19: Medicine for Rudolph](https://adventofcode.com/2015/day/19)
+* [2018 Day 23: Experimental Emergency Teleportation](https://adventofcode.com/2018/day/23)
+* [2019 Day 16: Flawed Frequency Transmission](https://adventofcode.com/2019/day/16)
+* [2019 Day 22: Slam Shuffle](https://adventofcode.com/2019/day/22)
+* [2020 Day 19: Monster Messages](https://adventofcode.com/2020/day/19)
+* [2022 Day 19: Not Enough Minerals](https://adventofcode.com/2022/day/19)
+* [2023 Day 21: Step Counter](https://adventofcode.com/2023/day/21)
+* [2024 Day 21: Keypad Conundrum](https://adventofcode.com/2024/day/21)
+
+## Wall Of Shame
+
+The total runtime on my laptop for all puzzles across all years is ~9 minutes 20 seconds. At less than a minute per year on average I'm not totally unhappy with the runtimes of my solutions. Those that take up the lions share of the runtime and might get revisited at some point in the future are:
+
+&lt;TODO>
+
+## No Littering
+
+The whole point of Advent of Code is for YOU to have fun challenging yourself and maybe learning something new. Please don't download the code if your only intention is to just run it for the sake of getting stars. Not only does this pollute the stats for everyone else, but you're depriving yourself of the satisfaction of either solving or implementing a solution for yourself.
+
 &lt;TODO>
