@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AoC2017.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AoC2017.cpp" />
+    <ClCompile Include="Puzzle01.cpp" />
+    <ClCompile Include="Puzzle02.cpp" />
+    <ClCompile Include="Puzzle03.cpp" />
+    <ClCompile Include="Puzzle04.cpp" />
+    <ClCompile Include="Puzzle05.cpp" />
+    <ClCompile Include="Puzzle06.cpp" />
+    <ClCompile Include="Puzzle07.cpp" />
+    <ClCompile Include="Puzzle08.cpp" />
+    <ClCompile Include="Puzzle09.cpp" />
+    <ClCompile Include="Puzzle10.cpp" />
+    <ClCompile Include="Puzzle11.cpp" />
+    <ClCompile Include="Puzzle12.cpp" />
+    <ClCompile Include="Puzzle13.cpp" />
+    <ClCompile Include="Puzzle14.cpp" />
+    <ClCompile Include="Puzzle15.cpp" />
+    <ClCompile Include="Puzzle16.cpp" />
+    <ClCompile Include="Puzzle17.cpp" />
+    <ClCompile Include="Puzzle18.cpp" />
+    <ClCompile Include="Puzzle19.cpp" />
+    <ClCompile Include="Puzzle20.cpp" />
+    <ClCompile Include="Puzzle21.cpp" />
+    <ClCompile Include="Puzzle22.cpp" />
+    <ClCompile Include="Puzzle23.cpp" />
+    <ClCompile Include="Puzzle24.cpp" />
+    <ClCompile Include="Puzzle25.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6cfbf739-8047-41ff-ba15-a37b47ec052b}</ProjectGuid>
+    <RootNamespace>AoC2017</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Debug.props" />
+    <Import Project="..\Common.props" />
+    <Import Project="..\Lib.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Release.props" />
+    <Import Project="..\Common.props" />
+    <Import Project="..\Lib.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

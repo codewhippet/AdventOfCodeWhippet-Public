@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdventOfCodeWhippet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="AoC2015\AoC2015.vcxproj">
+      <Project>{ffd7e538-f954-4555-a749-7a1febef6ea7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2016\AoC2016.vcxproj">
+      <Project>{404c6960-3a27-4213-91b1-66fb3665a28b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2017\AoC2017.vcxproj">
+      <Project>{6cfbf739-8047-41ff-ba15-a37b47ec052b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2018\AoC2018.vcxproj">
+      <Project>{6d2ed672-e2a0-46e0-8e53-206c132ebc52}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2019\AoC2019.vcxproj">
+      <Project>{ee1b53cf-831e-406d-92e1-f13b73f8c2dc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2020\AoC2020.vcxproj">
+      <Project>{96ae5302-2a66-47c2-bf3e-b3d789aad872}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2021\AoC2021.vcxproj">
+      <Project>{0b95cda0-16c2-476b-b77b-189567adf31a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2022\AoC2022.vcxproj">
+      <Project>{7a10e5b7-60e2-4610-8893-963af5fa83d7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2023\AoC2023.vcxproj">
+      <Project>{6d7cee74-d587-4e3b-909f-ee454ac2cad6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2024\AoC2024.vcxproj">
+      <Project>{23864333-f2d2-45ba-bba7-747c726aba0b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="AoC2025\AoC2025.vcxproj">
+      <Project>{9a23ea26-fb4d-42e7-9a98-4ee45b126c6f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Utilities\Utilities.vcxproj">
+      <Project>{56736be7-5df3-41c4-9f7c-fe273d990e23}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{012988ab-74a9-4b45-9d5a-053f5661cfe2}</ProjectGuid>
+    <RootNamespace>AdventOfCodeWhippet</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Debug.props" />
+    <Import Project="Common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Release.props" />
+    <Import Project="Common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>0x1000000</StackReserveSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>0x1000000</StackReserveSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
