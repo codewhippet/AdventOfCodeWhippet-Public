@@ -63,5 +63,5 @@ Point2 Point2::MaxElements(const Point2& a, const Point2& b)
 
 int64_t ManhattanDistance(const Point2& a, const Point2& b)
 {
-	return abs(b.X - a.X) + abs(b.Y - a.Y);
+	return std::abs(b.X - a.X) + std::abs(b.Y - a.Y);
 }

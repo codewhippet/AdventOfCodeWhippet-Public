@@ -64,10 +64,13 @@ struct std::hash<Vector4>
 {
 	std::size_t operator()(const Vector4& v) const noexcept
 	{
+		const int shiftDown = (sizeof(std::size_t) * CHAR_BIT >> 2);
+		const int shiftUp = (sizeof(std::size_t) * CHAR_BIT) - shiftDown;
+
 		size_t hash = std::hash<decltype(v.X)>{}(v.X);
-		hash = std::hash<decltype(v.Y)>{}(v.Y) ^ (hash >> 16 | hash << 48);
-		hash = std::hash<decltype(v.Z)>{}(v.Z) ^ (hash >> 16 | hash << 48);
-		hash = std::hash<decltype(v.W)>{}(v.W) ^ (hash >> 16 | hash << 48);
+		hash = std::hash<decltype(v.Y)>{}(v.Y) ^ (hash >> shiftDown | hash << shiftUp);
+		hash = std::hash<decltype(v.Z)>{}(v.Z) ^ (hash >> shiftDown | hash << shiftUp);
+		hash = std::hash<decltype(v.W)>{}(v.W) ^ (hash >> shiftDown | hash << shiftUp);
 		return hash;
 	}
 };

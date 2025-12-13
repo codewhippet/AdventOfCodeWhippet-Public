@@ -67,6 +67,7 @@ struct LineInclusiveRange
 		: First(first)
 		, Last(last)
 	{
+		assert(First != Last);
 	}
 
 	LineIterator begin() const

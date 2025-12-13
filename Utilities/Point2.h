@@ -3,6 +3,8 @@
 #include <functional>
 #include <vector>
 #include <map>
+#include <limits>
+#include <limits.h>
 #include <stdint.h>
 
 struct Point2
@@ -103,8 +105,11 @@ struct std::hash<Point2>
 {
 	std::size_t operator()(const Point2& v) const noexcept
 	{
+		const int shiftDown = (sizeof(std::size_t) * CHAR_BIT >> 2);
+		const int shiftUp = (sizeof(std::size_t) * CHAR_BIT) - shiftDown;
+
 		size_t hash = std::hash<decltype(v.X)>{}(v.X);
-		hash = std::hash<decltype(v.Y)>{}(v.Y) ^ (hash >> 16 | hash << 48);
+		hash = std::hash<decltype(v.Y)>{}(v.Y) ^ (hash >> shiftDown | hash << shiftUp);
 		return hash;
 	}
 };

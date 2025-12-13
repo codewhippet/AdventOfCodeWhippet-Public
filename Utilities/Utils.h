@@ -30,6 +30,7 @@
 #include <array>
 #include <ranges>
 #include <bit>
+#include <limits>
 
 #include <assert.h>
 #include <inttypes.h>
