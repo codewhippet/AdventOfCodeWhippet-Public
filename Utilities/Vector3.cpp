@@ -27,5 +27,5 @@ Vector3 Vector3::MaxElements(const Vector3& a, const Vector3& b)
 
 int64_t ManhattanDistance(const Vector3& a, const Vector3& b)
 {
-	return abs(b.X - a.X) + abs(b.Y - a.Y) + abs(b.Z - a.Z);
+	return std::abs(b.X - a.X) + std::abs(b.Y - a.Y) + std::abs(b.Z - a.Z);
 }

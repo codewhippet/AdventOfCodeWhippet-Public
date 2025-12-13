@@ -19,7 +19,7 @@ std::vector<std::string> ReadAllLines(std::istream& input)
 		if (!std::getline(input, line))
 			break;
 
-		lines.push_back(line);
+		lines.emplace_back(std::move(line));
 	}
 
 	return lines;

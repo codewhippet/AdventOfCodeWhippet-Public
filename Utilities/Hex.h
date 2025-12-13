@@ -44,7 +44,7 @@ namespace HexFlat
 	inline int64_t MahattanDistance(const Hex& a, const Hex& b)
 	{
 		Hex h = a - b;
-		return (abs(h.Q) + abs(h.R) + abs(h.S)) / 2;
+		return (std::abs(h.Q) + std::abs(h.R) + std::abs(h.S)) / 2;
 	}
 }
 
@@ -86,7 +86,7 @@ namespace HexPointy
 	inline int64_t MahattanDistance(const Hex& a, const Hex& b)
 	{
 		Hex h = a - b;
-		return (abs(h.Q) + abs(h.R) + abs(h.S)) / 2;
+		return (std::abs(h.Q) + std::abs(h.R) + std::abs(h.S)) / 2;
 	}
 }
 
@@ -95,9 +95,12 @@ struct std::hash<HexFlat::Hex>
 {
 	std::size_t operator()(const HexFlat::Hex& h) const noexcept
 	{
+		const int shiftDown = (sizeof(std::size_t) * CHAR_BIT >> 2);
+		const int shiftUp = (sizeof(std::size_t) * CHAR_BIT) - shiftDown;
+
 		size_t hash = std::hash<decltype(h.Q)>{}(h.Q);
-		hash = std::hash<decltype(h.R)>{}(h.R) ^ (hash >> 16 | hash << 48);
-		hash = std::hash<decltype(h.S)>{}(h.S) ^ (hash >> 16 | hash << 48);
+		hash = std::hash<decltype(h.R)>{}(h.R) ^ (hash >> shiftDown | hash << shiftUp);
+		hash = std::hash<decltype(h.S)>{}(h.S) ^ (hash >> shiftDown | hash << shiftUp);
 		return hash;
 	}
 };

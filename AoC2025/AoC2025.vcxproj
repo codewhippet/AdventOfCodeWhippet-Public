@@ -28,19 +28,6 @@
     <ClCompile Include="Puzzle10.cpp" />
     <ClCompile Include="Puzzle11.cpp" />
     <ClCompile Include="Puzzle12.cpp" />
-    <ClCompile Include="Puzzle13.cpp" />
-    <ClCompile Include="Puzzle14.cpp" />
-    <ClCompile Include="Puzzle15.cpp" />
-    <ClCompile Include="Puzzle16.cpp" />
-    <ClCompile Include="Puzzle17.cpp" />
-    <ClCompile Include="Puzzle18.cpp" />
-    <ClCompile Include="Puzzle19.cpp" />
-    <ClCompile Include="Puzzle20.cpp" />
-    <ClCompile Include="Puzzle21.cpp" />
-    <ClCompile Include="Puzzle22.cpp" />
-    <ClCompile Include="Puzzle23.cpp" />
-    <ClCompile Include="Puzzle24.cpp" />
-    <ClCompile Include="Puzzle25.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
