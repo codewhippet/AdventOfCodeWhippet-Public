@@ -32,6 +32,7 @@ Over the last couple of years I've been steadily expanding and refining the util
 * 2018 - [C++]
 * 2019 - [C++] Ported my terrible Python code and finally finished off the year
 * 2022 - [C++] Ported my original C# solutions over to C++
+* **2025 - [C++] Completed "real-time"**
 
 ## Wall of Nemeses
 
@@ -45,6 +46,7 @@ In most years there seems to be at least one puzzle that stumps me for a day or 
 * [2022 Day 19: Not Enough Minerals](https://adventofcode.com/2022/day/19)
 * [2023 Day 21: Step Counter](https://adventofcode.com/2023/day/21)
 * [2024 Day 21: Keypad Conundrum](https://adventofcode.com/2024/day/21)
+* [2025 Day 10: Factory](https://adventofcode.com/2025/day/10)
 
 ## Wall Of Shame
 
