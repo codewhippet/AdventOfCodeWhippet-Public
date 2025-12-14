@@ -58,10 +58,12 @@ static void Puzzle12_A(const string& filename)
 		int numPiecesToPlace = ranges::fold_left(pieceCounts, 0, plus{});
 		int loosePackedPieceCount = (width / 3) * (height / 3);
 		bool trivialAccept = loosePackedPieceCount >= numPiecesToPlace;
+		(void)trivialAccept;
 
 		int numTilesToPlace = ranges::fold_left(views::zip_transform(multiplies{}, pieceTileCounts, pieceCounts), 0, plus{});
 		int numTilesAvailable = width * height;
 		bool trivialReject = numTilesToPlace > numTilesAvailable;
+		(void)trivialReject;
 
 		assert(trivialAccept || trivialReject);
 		assert(trivialAccept != trivialReject);
