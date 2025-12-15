@@ -374,12 +374,34 @@ static void Puzzle10_B(const string& filename)
 	{
 		Counters counters = ParseCounters(line);
 
-		auto matrix = CountersToAugmentedMatrix(counters);
+		vector<vector<int64_t>> matrix;
+		while (true)
+		{
+			matrix = CountersToAugmentedMatrix(counters);
+			ReduceAndTrim(&matrix);
+
+			bool allLeadingNonZero = true;
+			for (int i = 0; i < (int)matrix.size(); i++)
+			{
+				if (matrix[i][i] == 0)
+				{
+					allLeadingNonZero = false;
+					break;
+				}
+			}
+
+			if (allLeadingNonZero)
+				break;
+
+			for (int i = 0; i < (int)counters.Buttons.size(); i++)
+			{
+				swap(counters.Buttons[i], counters.Buttons[rand() % (int)counters.Buttons.size()]);
+			}
+		}
+
 		auto constraints = CountersToConstraints(counters);
 
 		int64_t minimumPresses = numeric_limits<int64_t>::max();
-
-		ReduceAndTrim(&matrix);
 		SolveConstrained(counters, matrix, constraints, &minimumPresses);
 
 		assert(minimumPresses < numeric_limits<int64_t>::max());
