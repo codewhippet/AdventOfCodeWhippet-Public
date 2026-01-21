@@ -62,6 +62,7 @@ namespace Puzzle10_2025_Types
 	};
 
 	// Notation used from https://www.pmcalculators.com/simplex-method-calculator/
+	// Most reliable online calculator for checking: https://www.emathhelp.net/calculators/linear-programming/simplex-method-calculator/
 	struct Tableau
 	{
 		size_t NumVariables = 0;
@@ -474,7 +475,6 @@ static Tableau CreateTableau(const IlpProblem& problem)
 		switch (sourceConstraint.Type)
 		{
 		case ConstraintType::LessOrEqual:
-			// X_1 + X_3 <= 100 -> X_1 + X_3 + S2 = 100
 			if (candidateBasis == invalidBasis)
 			{
 				const size_t newSlackVariable = t.NumSlackVariables++;
@@ -487,7 +487,6 @@ static Tableau CreateTableau(const IlpProblem& problem)
 			}
 			break;
 		case ConstraintType::Equal:
-			// X_0 + X_1 = 2 -> X_0 + X_1 + Y1 = 2
 			if (candidateBasis == invalidBasis)
 			{
 				const size_t newArtificialVariable = t.NumArtificialVariables++;
@@ -500,7 +499,6 @@ static Tableau CreateTableau(const IlpProblem& problem)
 			}
 			break;
 		case ConstraintType::GreaterOrEqual:
-			// X_0 + X_2 >= 2 -> X_0 + X_2 - S1 + Y3 = 2
 			{
 				const size_t newSlackVariable = t.NumSlackVariables++;
 				const size_t newArtificialVariable = t.NumArtificialVariables++;
@@ -696,7 +694,6 @@ static size_t PickPivotRow(Tableau* tableau, size_t pivotColumn)
 	size_t pivotRow = numeric_limits<size_t>::max();
 	for (size_t row = 0; row < t.Matrix.size(); row++)
 	{
-		//if ((t.Matrix[row][pivotColumn] > 0) && (t.Matrix[row].back() > 0))
 		if (t.Matrix[row][pivotColumn] > 0)
 		{
 			if ((pivotRow == numeric_limits<size_t>::max()) ||
@@ -1010,10 +1007,6 @@ static void Puzzle10_C(const string& filename)
 
 	printf("[2025] Puzzle10_C: %" PRId32 "\n", answer);
 }
-
-auto a = Puzzle10_A;
-auto b = Puzzle10_B;
-auto c = Puzzle10_C;
 
 void Puzzle10_2025(const string& filename)
 {
