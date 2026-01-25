@@ -674,7 +674,7 @@ static size_t PickPivotColumn(Tableau* tableau)
 	size_t pivotColumn = numeric_limits<size_t>::max();
 	for (size_t column = 0; column + 1 < t.Z.size(); column++)
 	{
-		if (t.Z[column] > 0)
+		if ((t.Z[column] - ARBITRARY_SMALL_NUMBER) > 0)
 		{
 			if ((pivotColumn == numeric_limits<size_t>::max()) ||
 				(t.Z[column] > t.Z[pivotColumn]))
@@ -694,7 +694,7 @@ static size_t PickPivotRow(Tableau* tableau, size_t pivotColumn)
 	size_t pivotRow = numeric_limits<size_t>::max();
 	for (size_t row = 0; row < t.Matrix.size(); row++)
 	{
-		if (t.Matrix[row][pivotColumn] > 0)
+		if ((t.Matrix[row][pivotColumn] - ARBITRARY_SMALL_NUMBER) > 0)
 		{
 			if ((pivotRow == numeric_limits<size_t>::max()) ||
 				((t.Matrix[row].back() / t.Matrix[row][pivotColumn]) < (t.Matrix[pivotRow].back() / t.Matrix[pivotRow][pivotColumn])))
@@ -755,7 +755,7 @@ static void PivotArtificialVariables(Tableau* tableau)
 
 	vector<size_t> variablesNotInBase;
 	variablesNotInBase.reserve(isVariableInBase.size());
-	for (size_t i = 0; i < t.NumVariables; i++)
+	for (size_t i = 0; i < numNonArtificialVariables; i++)
 	{
 		if (isVariableInBase[i] == false)
 		{
@@ -829,44 +829,64 @@ static IlpSolution Solve(const IlpProblem& p)
 	return s;
 }
 
-static bool AddOrUpdateUpperBoundCuttingPlane(IlpProblem* p, size_t variable, double value)
+static void AddOrUpdateUpperBoundCuttingPlane(IlpProblem* p, size_t variable, double value)
 {
 	for (Constraint& c : p->Constraints)
 	{
-		if ((c.Type == ConstraintType::LessOrEqual) && (c.Variables.front() == variable))
+		const bool affectsThisVariableOnly = (c.Variables.size() == 1) && (c.Variables.front() == variable);
+		if ((c.Type == ConstraintType::LessOrEqual) && affectsThisVariableOnly)
 		{
 			c.Value = min(c.Value, floor(value));
-			return true;
-		}
-		else if ((c.Type == ConstraintType::GreaterOrEqual) && (c.Variables.front() == variable))
-		{
-			// We already have a lower bound cutting plane
-			return false;
+			return;
 		}
 	}
 
 	p->Constraints.push_back({ { variable }, ConstraintType::LessOrEqual, floor(value) });
-	return true;
 }
 
-static bool AddOrUpdateLowerBoundCuttingPlane(IlpProblem* p, size_t variable, double value)
+static void AddOrUpdateLowerBoundCuttingPlane(IlpProblem* p, size_t variable, double value)
 {
-	assert(!isnan(value));
 	for (Constraint& c : p->Constraints)
 	{
-		if ((c.Type == ConstraintType::GreaterOrEqual) && (c.Variables.front() == variable))
+		const bool affectsThisVariableOnly = (c.Variables.size() == 1) && (c.Variables.front() == variable);
+		if ((c.Type == ConstraintType::GreaterOrEqual) && affectsThisVariableOnly)
 		{
 			c.Value = max(c.Value, ceil(value));
-			return true;
-		}
-		else if ((c.Type == ConstraintType::LessOrEqual) && (c.Variables.front() == variable))
-		{
-			// We already have an upper bound cutting plane
-			return false;
+			return;
 		}
 	}
 
 	p->Constraints.push_back({ { variable }, ConstraintType::GreaterOrEqual, ceil(value) });
+}
+
+static bool AreCuttingPlanesConsistent(const IlpProblem& p)
+{
+	vector<double> upperBounds(p.NumVariables, numeric_limits<double>::max());
+	vector<double> lowerBounds(p.NumVariables, 0);
+
+	for (const Constraint& c : p.Constraints)
+	{
+		if (c.Variables.size() == 1)
+		{
+			if (c.Type == ConstraintType::LessOrEqual)
+			{
+				upperBounds[c.Variables.front()] = c.Value + ARBITRARY_SMALL_NUMBER;
+			}
+			else if (c.Type == ConstraintType::GreaterOrEqual)
+			{
+				lowerBounds[c.Variables.front()] = c.Value - ARBITRARY_SMALL_NUMBER;
+			}
+		}
+	}
+
+	for (size_t i = 0; i < upperBounds.size(); i++)
+	{
+		if (upperBounds[i] < lowerBounds[i])
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -979,13 +999,15 @@ static void Puzzle10_C(const string& filename)
 				if (!IsIntegerIsh(s.VariableValues[variable]))
 				{
 					IlpProblem a = activeProblems.front();
-					if (AddOrUpdateUpperBoundCuttingPlane(&a, variable, s.VariableValues[variable]))
+					AddOrUpdateUpperBoundCuttingPlane(&a, variable, s.VariableValues[variable]);
+					if (AreCuttingPlanesConsistent(a))
 					{
 						activeProblems.push_back(a);
 					}
 
 					IlpProblem b = activeProblems.front();
-					if (AddOrUpdateLowerBoundCuttingPlane(&b, variable, s.VariableValues[variable]))
+					AddOrUpdateLowerBoundCuttingPlane(&b, variable, s.VariableValues[variable]);
+					if (AreCuttingPlanesConsistent(b))
 					{
 						activeProblems.push_back(b);
 					}
