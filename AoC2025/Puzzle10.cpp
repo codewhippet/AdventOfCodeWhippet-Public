@@ -859,35 +859,19 @@ static void AddOrUpdateLowerBoundCuttingPlane(IlpProblem* p, size_t variable, do
 	p->Constraints.push_back({ { variable }, ConstraintType::GreaterOrEqual, ceil(value) });
 }
 
-static bool AreCuttingPlanesConsistent(const IlpProblem& p)
+static void AddOrUpdateGlobalMinimum(IlpProblem* p, double value)
 {
-	vector<double> upperBounds(p.NumVariables, numeric_limits<double>::max());
-	vector<double> lowerBounds(p.NumVariables, 0);
-
-	for (const Constraint& c : p.Constraints)
+	for (Constraint& c : p->Constraints)
 	{
-		if (c.Variables.size() == 1)
+		const bool affectsAllVariables = (c.Variables.size() == p->NumVariables);
+		if ((c.Type == ConstraintType::GreaterOrEqual) && affectsAllVariables)
 		{
-			if (c.Type == ConstraintType::LessOrEqual)
-			{
-				upperBounds[c.Variables.front()] = c.Value + ARBITRARY_SMALL_NUMBER;
-			}
-			else if (c.Type == ConstraintType::GreaterOrEqual)
-			{
-				lowerBounds[c.Variables.front()] = c.Value - ARBITRARY_SMALL_NUMBER;
-			}
+			c.Value = max(c.Value, ceil(value));
+			return;
 		}
 	}
 
-	for (size_t i = 0; i < upperBounds.size(); i++)
-	{
-		if (upperBounds[i] < lowerBounds[i])
-		{
-			return false;
-		}
-	}
-
-	return true;
+	p->Constraints.push_back({ views::iota(0ull, p->NumVariables) | ranges::to<vector>(), ConstraintType::GreaterOrEqual, ceil(value) });
 }
 
 static void Puzzle10_A(const string& filename)
@@ -993,33 +977,36 @@ static void Puzzle10_C(const string& filename)
 			if (s.ObjectiveValue > minimumIntegerSolution)
 				continue;
 
-			bool isIntegerSolution = true;
-			for (size_t variable = 0; variable < s.VariableValues.size(); variable++)
+			if (IsIntegerIsh(s.ObjectiveValue))
 			{
-				if (!IsIntegerIsh(s.VariableValues[variable]))
+				bool isIntegerSolution = true;
+				for (size_t variable = 0; variable < s.VariableValues.size(); variable++)
 				{
-					IlpProblem a = activeProblems.front();
-					AddOrUpdateUpperBoundCuttingPlane(&a, variable, s.VariableValues[variable]);
-					if (AreCuttingPlanesConsistent(a))
+					if (!IsIntegerIsh(s.VariableValues[variable]))
 					{
+						IlpProblem a = activeProblems.front();
+						AddOrUpdateUpperBoundCuttingPlane(&a, variable, s.VariableValues[variable]);
 						activeProblems.push_back(a);
-					}
 
-					IlpProblem b = activeProblems.front();
-					AddOrUpdateLowerBoundCuttingPlane(&b, variable, s.VariableValues[variable]);
-					if (AreCuttingPlanesConsistent(b))
-					{
+						IlpProblem b = activeProblems.front();
+						AddOrUpdateLowerBoundCuttingPlane(&b, variable, s.VariableValues[variable]);
 						activeProblems.push_back(b);
-					}
 
-					isIntegerSolution = false;
-					break;
+						isIntegerSolution = false;
+						break;
+					}
+				}
+
+				if (isIntegerSolution)
+				{
+					minimumIntegerSolution = min(minimumIntegerSolution, static_cast<int32_t>(round(s.ObjectiveValue)));
 				}
 			}
-
-			if (isIntegerSolution)
+			else
 			{
-				minimumIntegerSolution = min(minimumIntegerSolution, static_cast<int32_t>(round(s.ObjectiveValue)));
+				IlpProblem a = activeProblems.front();
+				AddOrUpdateGlobalMinimum(&a, ceil(s.ObjectiveValue));
+				activeProblems.push_back(a);
 			}
 		}
 
