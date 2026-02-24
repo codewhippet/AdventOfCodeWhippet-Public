@@ -11,22 +11,26 @@ namespace Puzzle24_2016_Types
 
 using namespace Puzzle24_2016_Types;
 
-static int64_t DistanceBetweenNodes(const ArrayMap2D& maze, const Point2& start, const Point2& stop)
+static int64_t DistanceBetweenNodes(const ArrayMap2D& maze, const Point2& start, map<pair<size_t, size_t>, int64_t>* distancesBetweenNodes)
 {
+	const size_t from = maze(start) - '0';
+
 	vector<pair<int64_t, Point2>> searchQueue{ { 0, start } };
 
 	set<Point2> visited;
 	for (size_t i = 0; i < searchQueue.size(); i++)
 	{
 		auto [currentSteps, currentPos] = searchQueue[i];
-		if (currentPos == stop)
-		{
-			return currentSteps;
-		}
-
 		if (visited.contains(currentPos))
 		{
 			continue;
+		}
+
+		if (isdigit(maze(currentPos)))
+		{
+			const size_t to = maze(currentPos) - '0';
+			distancesBetweenNodes->insert({ { from, to }, currentSteps });
+			distancesBetweenNodes->insert({ { to, from }, currentSteps });
 		}
 
 		visited.insert(currentPos);
@@ -49,12 +53,7 @@ static auto DistancesBetweenAllNodes(const ArrayMap2D& maze, const vector<pair<c
 	map<pair<size_t, size_t>, int64_t> distancesBetweenNodes;
 	for (size_t i = 0; i < nodes.size(); i++)
 	{
-		for (size_t j = i + 1; j < nodes.size(); j++)
-		{
-			int64_t distance = DistanceBetweenNodes(maze, nodes[i].second, nodes[j].second);
-			distancesBetweenNodes[{ i, j }] = distance;
-			distancesBetweenNodes[{ j, i }] = distance;
-		}
+		DistanceBetweenNodes(maze, nodes[i].second, &distancesBetweenNodes);
 	}
 	return distancesBetweenNodes;
 }
@@ -164,9 +163,15 @@ static void Puzzle24_B(const string& filename)
 	ranges::sort(nodes);
 
 	// Returning to the starting node is the same as having a final node at the same location
-	nodes.push_back({ (char)('0' + nodes.size()), nodes[0].second });
+	const size_t finalNode = nodes.size();
+	nodes.push_back({ (char)('0' + finalNode), nodes[0].second });
 
 	map<pair<size_t, size_t>, int64_t> distancesBetweenNodes = DistancesBetweenAllNodes(maze, nodes);
+	for (size_t node = 1; node < finalNode; node++)
+	{
+		distancesBetweenNodes.insert({ { node, finalNode }, distancesBetweenNodes.at({ node, 0 }) });
+		distancesBetweenNodes.insert({ { finalNode, node }, distancesBetweenNodes.at({ 0, node }) });
+	}
 
 	int64_t answer = ShortestVisitToAll(nodes, distancesBetweenNodes,
 		[](pair<size_t, size_t> currentState, size_t nodeCount, size_t nextNode, size_t nextSetElement) -> bool
