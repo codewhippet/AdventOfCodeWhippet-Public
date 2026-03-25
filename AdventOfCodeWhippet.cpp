@@ -12,15 +12,15 @@
 
 int main()
 {
-	SolveAllPuzzles_2015(R"(.\AoC2015\)");
-	SolveAllPuzzles_2016(R"(.\AoC2016\)");
-	SolveAllPuzzles_2017(R"(.\AoC2017\)");
-	SolveAllPuzzles_2018(R"(.\AoC2018\)");
-	SolveAllPuzzles_2019(R"(.\AoC2019\)");
-	SolveAllPuzzles_2020(R"(.\AoC2020\)");
-	SolveAllPuzzles_2021(R"(.\AoC2021\)");
-	SolveAllPuzzles_2022(R"(.\AoC2022\)");
-	SolveAllPuzzles_2023(R"(.\AoC2023\)");
-	SolveAllPuzzles_2024(R"(.\AoC2024\)");
-	SolveAllPuzzles_2025(R"(.\AoC2025\)");
+	SolveAllPuzzles_2015(R"(.\AoCInput\2015\)");
+	SolveAllPuzzles_2016(R"(.\AoCInput\2016\)");
+	SolveAllPuzzles_2017(R"(.\AoCInput\2017\)");
+	SolveAllPuzzles_2018(R"(.\AoCInput\2018\)");
+	SolveAllPuzzles_2019(R"(.\AoCInput\2019\)");
+	SolveAllPuzzles_2020(R"(.\AoCInput\2020\)");
+	SolveAllPuzzles_2021(R"(.\AoCInput\2021\)");
+	SolveAllPuzzles_2022(R"(.\AoCInput\2022\)");
+	SolveAllPuzzles_2023(R"(.\AoCInput\2023\)");
+	SolveAllPuzzles_2024(R"(.\AoCInput\2024\)");
+	SolveAllPuzzles_2025(R"(.\AoCInput\2025\)");
 }

@@ -363,14 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Puzzle input
-/AoC2015/Puzzle*.txt
-/AoC2016/Puzzle*.txt
-/AoC2017/Puzzle*.txt
-/AoC2018/Puzzle*.txt
-/AoC2019/Puzzle*.txt
-/AoC2020/Puzzle*.txt
-/AoC2021/Puzzle*.txt
-/AoC2022/Puzzle*.txt
-/AoC2023/Puzzle*.txt
-/AoC2024/Puzzle*.txt
-/AoC2025/Puzzle*.txt
+AoCInput/
